@@ -1,3 +1,5 @@
+require 'pry'
+
 class Board
   attr_accessor :cells
 
@@ -26,7 +28,24 @@ class Board
   end
 
   def full?
-    
+    @cells.include?(" ")? false : true
+  end
+
+  def turn_count
+    @cells.select {|cell| cell != " "}.length
+  end
+
+  def taken?(position)
+    cell = @cells[position.to_i - 1]
+    cell == "X" || cell == "O"? true : false
+  end
+
+  def valid_move?(position)
+    position.to_i.between?(1, 9) && !taken?(position) ? true : false
+  end
+
+  def update(position, player)
+    @cells[position.to_i - 1] = player.token
   end
 
 end
