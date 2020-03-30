@@ -102,7 +102,7 @@ class Game
     puts "2.  You against Computer"
     puts "3.  Computer against Computer"
 
-    binding.pry
+    # binding.pry
 
     mode_input = gets.strip
 
