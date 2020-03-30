@@ -28,11 +28,7 @@ class Game
   end
 
   def current_player
-    if @board.cells.select {|cell| cell != " "}.length.odd?
-      return player_2
-    else
-      return player_1
-    end
+    board.turn_count.odd? ? player_2 : player_1
   end
 
   def won?
@@ -52,4 +48,51 @@ class Game
     end
     false
   end
+
+  def draw?
+    if won? || @board.cells.include?(" ")
+      return false
+    end
+      return true
+  end
+
+  def over?
+    if draw? || won?
+      return true
+    else
+      return false
+    end
+  end
+
+  def winner
+    if !won?
+      return nil
+    else
+      @board.cells[won?[0]]== "X" ? "X" : "O" #won? returns false or winning combination in an array
+    end
+  end
+
+  def turn
+    puts "Please enter a number 1 - 9"
+    input = current_player.move(@board)
+
+    if @board.valid_move?(input)
+      @board.update(input, current_player)
+    else
+      puts "Please enter a number 1 - 9"
+      @board.display
+      turn
+    end
+    @board.display
+  end
+
+  def play
+    turn until over?
+    if won?
+      puts "Congratulations #{winner}!"
+    else
+      puts "Cat's Game!"
+    end
+  end
+
 end
