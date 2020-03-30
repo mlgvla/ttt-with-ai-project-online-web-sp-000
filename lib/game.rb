@@ -126,6 +126,6 @@ class Game
 
     puts "Would you like to play again? y/n"
     continue = gets.strip
-    start until continue == "n"
+    continue == "n" ? exit : start
   end
 end
