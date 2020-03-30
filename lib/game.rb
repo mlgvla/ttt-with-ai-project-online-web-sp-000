@@ -95,5 +95,37 @@ class Game
     end
   end
 
-  
+  def start
+    puts "Welcome to Tic-Tac-Toe!?/n/n"
+    puts "What type of game would you like to play?/n"
+    puts "1.  You against a Friend"
+    puts "2.  You against Computer"
+    puts "3.  Computer against Computer"
+
+    binding.pry
+
+    mode_input = gets.strip
+
+    if mode_input == "2"
+
+      puts "Would you like to go first? y/n"
+      yn_input = gets.strip
+
+      if yn_input == "y"
+        Game.new(Players::Human.new("X"), Players::Computer.new("O"), Board.new).play
+      else
+        Game.new(Players::Computer.new("X"), Players::Human.new("O"), Board.new).play
+      end
+
+    elsif mode_input == "3"
+      Game.new(Players::Computer.new("X"), Players::Computer.new("O"), Board.new).play
+
+    else
+      Game.new(Players::Human.new("X"), Players::Human.new("O"), Board.new).play
+    end
+
+    puts "Would you like to play again? y/n"
+    continue = gets.strip
+    start until continue == "n"
+  end
 end
